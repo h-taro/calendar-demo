@@ -9,8 +9,14 @@ import UIKit
 import THLogger
 
 class ViewController: UIViewController {
-    private let fruits = ["apple", "grape", "lemon", "banana", "cherry", "strobery", "peach", "orange"]
+    private var currentDate = Date()
     private var dateLabels: [String] = []
+    
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM"
+        return formatter
+    }()
     
     private let collectionView: UICollectionView = {
         let screenSize = UIScreen.main.bounds.size
@@ -31,8 +37,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(collectionView)
+        configure()
         
+        navigationItem.title = dateFormatter.string(from: currentDate)
+        
+        let currentYear = Calendar.current.component(.year, from: currentDate)
+        let currentMonth = Calendar.current.component(.month, from: currentDate)
+        dateLabels = getMonthDate(year: currentYear, month: currentMonth)
+        collectionView.reloadData()
+    }
+    
+    private func configure() {
+        view.addSubview(collectionView)
         collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         collectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         collectionView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
@@ -41,27 +57,19 @@ class ViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        let currentDate = Date()
-        let year = Calendar.current.component(.year, from: currentDate)
-        let month = Calendar.current.component(.month, from: currentDate)
-        let day = Calendar.current.component(.day, from: currentDate)
+        let rightBarButton = UIBarButtonItem(image: .init(systemName: "arrowshape.right"), style: .plain, target: self, action: #selector(onTapRight))
+        navigationItem.rightBarButtonItem = rightBarButton
         
-        navigationItem.title = "\(year)/\(month)/\(day)"
-        
-        dateLabels = hoge(year: 2023, month: 4)
-        collectionView.reloadData()
+        let leftBarButton = UIBarButtonItem(image: .init(systemName: "arrowshape.left"), style: .plain, target: self, action: #selector(onTapLeft))
+        navigationItem.leftBarButtonItem = leftBarButton
     }
     
-    private func hoge(year: Int, month: Int) -> [String] {
+    private func getMonthDate(year: Int, month: Int) -> [String] {
         guard let targetMonth = Calendar.current.date(from: DateComponents(year: year, month: month)) else { return [] }
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d"
         dateFormatter.calendar = Calendar.current
-        
-        let yearMonthFormatter = DateFormatter()
-        yearMonthFormatter.dateFormat = "yyyy年M月"
-        yearMonthFormatter.calendar = Calendar.current
         
         var components = Calendar.current.dateComponents([.year, .month], from: targetMonth)
         var results: [String] = []
@@ -134,6 +142,30 @@ class ViewController: UIViewController {
         
         return results
     }
+    
+    @objc private func onTapRight() {
+        guard let oneMonthInFuture = Calendar.current.date(byAdding: .month, value: 1, to: currentDate) else { return }
+        currentDate = oneMonthInFuture
+        
+        navigationItem.title = dateFormatter.string(from: oneMonthInFuture)
+        
+        let year = Calendar.current.component(.year, from: currentDate)
+        let month = Calendar.current.component(.month, from: currentDate)
+        dateLabels = getMonthDate(year: year, month: month)
+        collectionView.reloadData()
+    }
+    
+    @objc private func onTapLeft() {
+        guard let oneMonthAgo = Calendar.current.date(byAdding: .month, value: -1, to: currentDate) else { return }
+        currentDate = oneMonthAgo
+        
+        navigationItem.title = dateFormatter.string(from: oneMonthAgo)
+        
+        let year = Calendar.current.component(.year, from: currentDate)
+        let month = Calendar.current.component(.month, from: currentDate)
+        dateLabels = getMonthDate(year: year, month: month)
+        collectionView.reloadData()
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -154,9 +186,12 @@ extension ViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
 }
 
-// MARK: -
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let screenSize = view.window?.windowScene?.screen.bounds.size else { return .zero }
