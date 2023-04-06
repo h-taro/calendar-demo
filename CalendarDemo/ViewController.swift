@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import THLogger
 
 class ViewController: UIViewController {
     private let fruits = ["apple", "grape", "lemon", "banana", "cherry", "strobery", "peach", "orange"]
+    private var dateLabels: [String] = []
     
     private let collectionView: UICollectionView = {
         let screenSize = UIScreen.main.bounds.size
@@ -38,20 +40,113 @@ class ViewController: UIViewController {
         
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        let currentDate = Date()
+        let year = Calendar.current.component(.year, from: currentDate)
+        let month = Calendar.current.component(.month, from: currentDate)
+        let day = Calendar.current.component(.day, from: currentDate)
+        
+        navigationItem.title = "\(year)/\(month)/\(day)"
+        
+        dateLabels = hoge(year: 2023, month: 4)
+        collectionView.reloadData()
+    }
+    
+    private func hoge(year: Int, month: Int) -> [String] {
+        guard let targetMonth = Calendar.current.date(from: DateComponents(year: year, month: month)) else { return [] }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d"
+        dateFormatter.calendar = Calendar.current
+        
+        let yearMonthFormatter = DateFormatter()
+        yearMonthFormatter.dateFormat = "yyyy年M月"
+        yearMonthFormatter.calendar = Calendar.current
+        
+        var components = Calendar.current.dateComponents([.year, .month], from: targetMonth)
+        var results: [String] = []
+        
+        /*
+         第1週目
+         */
+        components.weekOfMonth = 1
+        for weekday in 1...7 {
+            components.weekday = weekday
+            if let date = Calendar.current.date(from: components) {
+                results.append(dateFormatter.string(from: date))
+            }
+        }
+        
+        /*
+         第２週目
+         */
+        components.weekOfMonth = 2
+        for weekday in 1...7 {
+            components.weekday = weekday
+            if let date = Calendar.current.date(from: components) {
+                results.append(dateFormatter.string(from: date))
+            }
+        }
+        
+        /*
+         第３週目
+         */
+        components.weekOfMonth = 3
+        for weekday in 1...7 {
+            components.weekday = weekday
+            if let date = Calendar.current.date(from: components) {
+                results.append(dateFormatter.string(from: date))
+            }
+        }
+        
+        /*
+         第４週目
+         */
+        components.weekOfMonth = 4
+        for weekday in 1...7 {
+            components.weekday = weekday
+            if let date = Calendar.current.date(from: components) {
+                results.append(dateFormatter.string(from: date))
+            }
+        }
+        
+        /*
+         第５週目
+         */
+        components.weekOfMonth = 5
+        for weekday in 1...7 {
+            components.weekday = weekday
+            if let date = Calendar.current.date(from: components) {
+                results.append(dateFormatter.string(from: date))
+            }
+        }
+        
+        /*
+         第６週目
+         */
+        components.weekOfMonth = 6
+        for weekday in 1...7 {
+            components.weekday = weekday
+            if let date = Calendar.current.date(from: components) {
+                results.append(dateFormatter.string(from: date))
+            }
+        }
+        
+        return results
     }
 }
 
 // MARK: - UICollectionViewDataSource
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fruits.count
+        return dateLabels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ItemCell.self), for: indexPath) as? ItemCell
         else { return .init() }
-        let fruit = fruits[indexPath.row]
+        let fruit = dateLabels[indexPath.row]
         cell.configure(text: fruit)
         return cell
     }
@@ -64,7 +159,7 @@ extension ViewController: UICollectionViewDelegate {
 // MARK: -
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let screnSize = UIScreen.main.bounds.size
-        return CGSize(width: screnSize.width / 2, height: screnSize.width / 2)
+        guard let screenSize = view.window?.windowScene?.screen.bounds.size else { return .zero }
+        return CGSize(width: screenSize.width / 7, height: screenSize.width / 7)
     }
 }

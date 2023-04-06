@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F60E12D29DEAA99000A5D81 /* THLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 6F60E12C29DEAA99000A5D81 /* THLogger */; };
+		6F60E13029DEAAA4000A5D81 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6F60E12F29DEAAA4000A5D81 /* SnapKit */; };
 		6F7078AC29DA6CBC0021D7F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7078AB29DA6CBC0021D7F0 /* AppDelegate.swift */; };
 		6F7078AE29DA6CBC0021D7F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7078AD29DA6CBC0021D7F0 /* SceneDelegate.swift */; };
 		6F7078B029DA6CBC0021D7F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7078AF29DA6CBC0021D7F0 /* ViewController.swift */; };
@@ -33,6 +35,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F60E12D29DEAA99000A5D81 /* THLogger in Frameworks */,
+				6F60E13029DEAAA4000A5D81 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +90,10 @@
 			dependencies = (
 			);
 			name = CalendarDemo;
+			packageProductDependencies = (
+				6F60E12C29DEAA99000A5D81 /* THLogger */,
+				6F60E12F29DEAAA4000A5D81 /* SnapKit */,
+			);
 			productName = CalendarDemo;
 			productReference = 6F7078A829DA6CBC0021D7F0 /* CalendarDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +122,10 @@
 				Base,
 			);
 			mainGroup = 6F70789F29DA6CBC0021D7F0;
+			packageReferences = (
+				6F60E12B29DEAA99000A5D81 /* XCRemoteSwiftPackageReference "THLogger" */,
+				6F60E12E29DEAAA4000A5D81 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 6F7078A929DA6CBC0021D7F0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -362,6 +374,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6F60E12B29DEAA99000A5D81 /* XCRemoteSwiftPackageReference "THLogger" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/h-taro/THLogger";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.4;
+			};
+		};
+		6F60E12E29DEAAA4000A5D81 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6F60E12C29DEAA99000A5D81 /* THLogger */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F60E12B29DEAA99000A5D81 /* XCRemoteSwiftPackageReference "THLogger" */;
+			productName = THLogger;
+		};
+		6F60E12F29DEAAA4000A5D81 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F60E12E29DEAAA4000A5D81 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6F7078A029DA6CBC0021D7F0 /* Project object */;
 }
