@@ -7,6 +7,7 @@
 
 import UIKit
 import THLogger
+import SnapKit
 
 class ViewController: UIViewController {
     private var currentDate = Date()
@@ -18,7 +19,14 @@ class ViewController: UIViewController {
         return formatter
     }()
     
-    private let collectionView: UICollectionView = {
+    private lazy var csvButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("UPDATE", for: .normal)
+        button.addTarget(self, action: #selector(onTapCSV), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var collectionView: UICollectionView = {
         let screenSize = UIScreen.main.bounds.size
         
         let layout = UICollectionViewFlowLayout()
@@ -49,10 +57,17 @@ class ViewController: UIViewController {
     
     private func configure() {
         view.addSubview(collectionView)
-        collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        collectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        collectionView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        view.addSubview(csvButton)
+        
+        collectionView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.height.equalTo(view.snp.width)
+        }
+        
+        csvButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(collectionView.snp.bottom).offset(40)
+        }
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -165,6 +180,11 @@ class ViewController: UIViewController {
         let month = Calendar.current.component(.month, from: currentDate)
         dateLabels = getMonthDate(year: year, month: month)
         collectionView.reloadData()
+    }
+    
+    @objc private func onTapCSV() {
+        let updateCsvViewController = UpdateCSVViewController()
+        navigationController?.pushViewController(updateCsvViewController, animated: true)
     }
 }
 
