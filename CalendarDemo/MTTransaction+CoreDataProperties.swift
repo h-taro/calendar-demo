@@ -26,5 +26,6 @@ extension MTTransaction {
 
 }
 
-extension MTTransaction : Identifiable {
+// MARK: - Identifiable
+extension MTTransaction: Identifiable {
 }

@@ -11,5 +11,4 @@ import CoreData
 
 @objc(MTTransaction)
 public class MTTransaction: NSManagedObject {
-
 }

@@ -20,6 +20,7 @@
 		6F7078B529DA6CBE0021D7F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F7078B429DA6CBE0021D7F0 /* Assets.xcassets */; };
 		6F7078B829DA6CBE0021D7F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F7078B629DA6CBE0021D7F0 /* LaunchScreen.storyboard */; };
 		6F7078C029DA6CFB0021D7F0 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7078BF29DA6CFB0021D7F0 /* ItemCell.swift */; };
+		6F82A32D29E3B1FB004949BE /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F82A32C29E3B1FB004949BE /* Persistence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		6F7078B729DA6CBE0021D7F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6F7078B929DA6CBE0021D7F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F7078BF29DA6CFB0021D7F0 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		6F82A32C29E3B1FB004949BE /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				6F7078B929DA6CBE0021D7F0 /* Info.plist */,
 				6F0F879929DEC8620071F46F /* UpdateCSVViewController.swift */,
 				6F0F879B29DECB5A0071F46F /* CalendarDemo.xcdatamodeld */,
+				6F82A32C29E3B1FB004949BE /* Persistence.swift */,
 			);
 			path = CalendarDemo;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F82A32D29E3B1FB004949BE /* Persistence.swift in Sources */,
 				6F7078C029DA6CFB0021D7F0 /* ItemCell.swift in Sources */,
 				6F7078B029DA6CBC0021D7F0 /* ViewController.swift in Sources */,
 				6F0F87A029DECBFF0071F46F /* MTTransaction+CoreDataClass.swift in Sources */,
